@@ -21,6 +21,7 @@ public class Vehicle {
         this.sold = sold;
         this.color = color;
         this.bodyStyle = bodyStyle;
+        this.mileage=mileage;
     }
 
     // Getters and Setters

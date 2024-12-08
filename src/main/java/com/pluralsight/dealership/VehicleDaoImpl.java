@@ -18,8 +18,8 @@ public class VehicleDaoImpl implements VehicleDao {
     @Override
     public boolean addVehicle(Vehicle vehicle) {
         String query = "INSERT INTO vehicles (vin, make, model, year, price, sold, color, body_style) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        try (Connection conn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (Connection conn = DatabaseConnection.connect()){
+             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, vehicle.getVin());
             stmt.setString(2, vehicle.getMake());
             stmt.setString(3, vehicle.getModel());
@@ -44,15 +44,16 @@ public class VehicleDaoImpl implements VehicleDao {
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 vehicles.add(new Vehicle(
+                        //(String vin, String make, String model, int year, double price, boolean sold, String color, String bodyStyle,int mileage)
                         rs.getString("vin"),
-                        rs.getInt("year"),
                         rs.getString("make"),
                         rs.getString("model"),
-                        rs.getString("body_style"),
-                        rs.getString("color"),
-                        rs.getInt("mileage"),
+                        rs.getInt("year"),
                         rs.getDouble("price"),
-                        rs.getBoolean("sold")
+                        rs.getBoolean("sold"),
+                        rs.getString("color"),
+                        rs.getString("body_style"),
+                        rs.getInt("mileage")
                 ));
             }
         } catch (SQLException e) {
@@ -73,14 +74,14 @@ public class VehicleDaoImpl implements VehicleDao {
                 while (rs.next()) {
                     vehicles.add(new Vehicle(
                             rs.getString("vin"),
-                            rs.getInt("year"),
                             rs.getString("make"),
                             rs.getString("model"),
-                            rs.getString("body_style"),
-                            rs.getString("color"),
-                            rs.getInt("mileage"),
+                            rs.getInt("year"),
                             rs.getDouble("price"),
-                            rs.getBoolean("sold")
+                            rs.getBoolean("sold"),
+                            rs.getString("color"),
+                            rs.getString("body_style"),
+                            rs.getInt("mileage")
                     ));
                 }
             }
@@ -102,14 +103,14 @@ public class VehicleDaoImpl implements VehicleDao {
                 while (rs.next()) {
                     vehicles.add(new Vehicle(
                             rs.getString("vin"),
-                            rs.getInt("year"),
                             rs.getString("make"),
                             rs.getString("model"),
-                            rs.getString("body_style"),
-                            rs.getString("color"),
-                            rs.getInt("mileage"),
+                            rs.getInt("year"),
                             rs.getDouble("price"),
-                            rs.getBoolean("sold")
+                            rs.getBoolean("sold"),
+                            rs.getString("color"),
+                            rs.getString("body_style"),
+                            rs.getInt("mileage")
                     ));
                 }
             }
@@ -130,14 +131,14 @@ public class VehicleDaoImpl implements VehicleDao {
                 while (rs.next()) {
                     vehicles.add(new Vehicle(
                             rs.getString("vin"),
-                            rs.getInt("year"),
                             rs.getString("make"),
                             rs.getString("model"),
-                            rs.getString("body_style"),
-                            rs.getString("color"),
-                            rs.getInt("mileage"),
+                            rs.getInt("year"),
                             rs.getDouble("price"),
-                            rs.getBoolean("sold")
+                            rs.getBoolean("sold"),
+                            rs.getString("color"),
+                            rs.getString("body_style"),
+                            rs.getInt("mileage")
                     ));
                 }
             }
@@ -158,14 +159,14 @@ public class VehicleDaoImpl implements VehicleDao {
                 while (rs.next()) {
                     vehicles.add(new Vehicle(
                             rs.getString("vin"),
-                            rs.getInt("year"),
                             rs.getString("make"),
                             rs.getString("model"),
-                            rs.getString("body_style"),
-                            rs.getString("color"),
-                            rs.getInt("mileage"),
+                            rs.getInt("year"),
                             rs.getDouble("price"),
-                            rs.getBoolean("sold")
+                            rs.getBoolean("sold"),
+                            rs.getString("color"),
+                            rs.getString("body_style"),
+                            rs.getInt("mileage")
                     ));
                 }
             }
