@@ -9,9 +9,10 @@ public class Vehicle {
     private boolean sold;
     private String color;
     private String bodyStyle;
+    private int mileage;
 
     // Constructor
-    public Vehicle(String vin, String make, String model, int year, double price, boolean sold, String color, String bodyStyle) {
+    public Vehicle(String vin, String make, String model, int year, double price, boolean sold, String color, String bodyStyle,int mileage) {
         this.vin = vin;
         this.make = make;
         this.model = model;
@@ -85,5 +86,13 @@ public class Vehicle {
 
     public void setBodyStyle(String bodyStyle) {
         this.bodyStyle = bodyStyle;
+    }
+
+    public int getMileage() {
+        return mileage;
+    }
+
+    public void setMileage(int mileage) {
+        this.mileage = mileage;
     }
 }
