@@ -24,6 +24,21 @@ public class Vehicle {
         this.mileage=mileage;
     }
 
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "vin='" + vin + '\'' +
+                ", make='" + make + '\'' +
+                ", model='" + model + '\'' +
+                ", year=" + year +
+                ", price=" + price +
+                ", sold=" + sold +
+                ", color='" + color + '\'' +
+                ", bodyStyle='" + bodyStyle + '\'' +
+                ", mileage=" + mileage +
+                '}';
+    }
+
     // Getters and Setters
     public String getVin() {
         return vin;

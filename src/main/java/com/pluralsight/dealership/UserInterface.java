@@ -8,8 +8,8 @@ public class UserInterface {
     private final ContractDao contractDao;
 
     public UserInterface() {
-        this.vehicleDao = new VehicleDaoImpl("jdbc:mysql://localhost:3306/cardealership", "root", "password");
-        this.contractDao = new ContractDaoImpl("jdbc:mysql://localhost:3306/cardealership", "root", "password");
+        this.vehicleDao = new VehicleDaoImpl("jdbc:mysql://localhost:3306/cardealership", "root", "yearup");
+        this.contractDao = new ContractDaoImpl("jdbc:mysql://localhost:3306/cardealership", "root", "yearup");
     }
 
     public void displayMainMenu() {
