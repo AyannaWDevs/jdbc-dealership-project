@@ -4,13 +4,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SalesContractDao {
+public class SalesContractDaoImpl {
 
     // Create (INSERT)
     public boolean addSalesContract(SalesContract salesContract) {
         String query = "INSERT INTO sales_contracts (vin, customer_id, sales_date, price, salesperson_id) VALUES (?, ?, ?, ?, ?)";
-        try (Connection conn = DatabaseConnection.connect();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (Connection conn = DatabaseConnection.connect()){
+             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, salesContract.getVin());
             stmt.setInt(2, salesContract.getCustomerId());
             stmt.setDate(3, Date.valueOf(salesContract.getSalesDate()));
@@ -24,27 +24,7 @@ public class SalesContractDao {
     }
 
     // Retrieve all records (SELECT)
-    public List<SalesContract> getAllSalesContracts() {
-        String query = "SELECT * FROM sales_contracts";
-        List<SalesContract> salesContracts = new ArrayList<>();
-        try (Connection conn = DatabaseConnection.connect();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
-            while (rs.next()) {
-                salesContracts.add(new SalesContract(
-                        rs.getInt("id"),
-                        rs.getString("vin"),
-                        rs.getInt("customer_id"),
-                        rs.getDate("sales_date").toLocalDate(),
-                        rs.getDouble("price"),
-                        rs.getInt("salesperson_id")
-                ));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return salesContracts;
-    }
+
 
     // Retrieve by ID (SELECT)
     public SalesContract getSalesContractById(int id) {
@@ -95,5 +75,26 @@ public class SalesContractDao {
             e.printStackTrace();
             return false;
         }
+    }
+    public List<SalesContract> getAllSalesContracts() {
+        String query = "SELECT * FROM sales_contracts";
+        List<SalesContract> salesContracts = new ArrayList<>();
+        try (Connection conn = DatabaseConnection.connect()){
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                salesContracts.add(new SalesContract(// int id, String vin, int customerId, LocalDate salesDate, double price, int salespersonId)
+                        rs.getInt("id"),
+                        rs.getString("vin"),
+                        rs.getInt("customer_id"),
+                        rs.getDate("contract_date").toLocalDate(),
+                        rs.getDouble("price"),
+                        rs.getInt("salesperson_id")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return salesContracts;
     }
 }

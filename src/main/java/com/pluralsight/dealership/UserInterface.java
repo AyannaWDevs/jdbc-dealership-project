@@ -5,11 +5,11 @@ import java.util.Scanner;
 
 public class UserInterface {
     private final VehicleDao vehicleDao;
-    private final ContractDao contractDao;
+    private final LeaseContractDao contractDao;
 
     public UserInterface() {
         this.vehicleDao = new VehicleDaoImpl("jdbc:mysql://localhost:3306/cardealership", "root", "yearup");
-        this.contractDao = new ContractDaoImpl("jdbc:mysql://localhost:3306/cardealership", "root", "yearup");
+        this.contractDao = new LeaseContractDaoImpl("jdbc:mysql://localhost:3306/cardealership", "root", "yearup");
     }
 
     public void displayMainMenu() {
@@ -64,7 +64,7 @@ public class UserInterface {
                     removeVehicle(scanner);
                     break;
                 case "3":
-                    displayContracts(contractDao.getAllContracts());
+
                     break;
                 case "4":
                     exit = true;
@@ -168,12 +168,12 @@ public class UserInterface {
         }
     }
 
-    private void displayContracts(List<Contract> contracts) {
-        if (contracts.isEmpty()) {
+    private void displayContracts(List<LeaseContract> leaseContracts) {
+        if (leaseContracts.isEmpty()) {
             System.out.println("No contracts found.");
         } else {
             System.out.println("\n--- Contracts ---");
-            contracts.forEach(System.out::println);
+            leaseContracts.forEach(System.out::println);
         }
     }
 }

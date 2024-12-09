@@ -4,27 +4,27 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContractDaoImpl implements ContractDao {
+public class LeaseContractDaoImpl implements LeaseContractDao {
     private final String dbUrl;
     private final String dbUsername;
     private final String dbPassword;
 
-    public ContractDaoImpl(String dbUrl, String dbUsername, String dbPassword) {
+    public LeaseContractDaoImpl(String dbUrl, String dbUsername, String dbPassword) {
         this.dbUrl = dbUrl;
         this.dbUsername = dbUsername;
         this.dbPassword = dbPassword;
     }
 
     @Override
-    public boolean addContract(Contract contract) {
+    public boolean addContract(LeaseContract leaseContract) {
         String query = "INSERT INTO contracts (vin, customer_id, contract_date, details, salesperson_id) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
              PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, contract.getVin());
-            stmt.setInt(2, contract.getCustomerId());
-            stmt.setDate(3, Date.valueOf(contract.getContractDate()));
-            stmt.setString(4, contract.getDetails());
-            stmt.setInt(5, contract.getSalespersonId());
+            stmt.setString(1, leaseContract.getVin());
+            stmt.setInt(2, leaseContract.getCustomerId());
+            stmt.setDate(3, Date.valueOf(leaseContract.getContractDate()));
+            stmt.setString(4, leaseContract.getDetails());
+            stmt.setInt(5, leaseContract.getSalespersonId());
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -33,14 +33,14 @@ public class ContractDaoImpl implements ContractDao {
     }
 
     @Override
-    public List<Contract> getAllContracts() {
-        String query = "SELECT * FROM contracts";
-        List<Contract> contracts = new ArrayList<>();
+    public List<LeaseContract> getAllLeaseContracts() {
+        String query = "SELECT * FROM lease_contracts";
+        List<LeaseContract> leaseContracts = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
-                contracts.add(new Contract(
+                leaseContracts.add(new LeaseContract(
                         rs.getInt("id"),
                         rs.getString("vin"),
                         rs.getInt("customer_id"),
@@ -52,18 +52,18 @@ public class ContractDaoImpl implements ContractDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return contracts;
+        return leaseContracts;
     }
 
     @Override
-    public Contract getContractById(int id) {
+    public LeaseContract getContractById(int id) {
         String query = "SELECT * FROM contracts WHERE id = ?";
         try (Connection conn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return new Contract(
+                    return new LeaseContract(
                             rs.getInt("id"),
                             rs.getString("vin"),
                             rs.getInt("customer_id"),

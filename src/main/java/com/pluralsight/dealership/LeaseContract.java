@@ -2,7 +2,7 @@ package com.pluralsight.dealership;
 
 import java.time.LocalDate;
 
-public class Contract {
+public class LeaseContract {
     private int id;
     private String vin;
     private int customerId;
@@ -10,7 +10,7 @@ public class Contract {
     private String details;
     private int salespersonId;
 
-    public Contract(int id, String vin, int customerId, LocalDate contractDate, String details, int salespersonId) {
+    public LeaseContract(int id, String vin, int customerId, LocalDate contractDate, String details, int salespersonId) {
         this.id = id;
         this.vin = vin;
         this.customerId = customerId;
